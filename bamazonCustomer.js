@@ -103,7 +103,7 @@ function asking() {
           }else{
             close()
           }
-        });
+        })};
         //inquerer
         // showproducts or close
       function close() {
@@ -111,5 +111,4 @@ function asking() {
         connection.end()
         process.exit
       }
-    }
     })};
