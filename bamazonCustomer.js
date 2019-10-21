@@ -1,4 +1,5 @@
 var inquirer = require("inquirer");
+var confirm = require('inquirer-confirm')
 var mysql = require("mysql");
 
 var connection = mysql.createConnection({
@@ -73,7 +74,8 @@ function asking() {
           // update db
           // tell user total price
         }else{
-          console.log("Insufficient Quantity!");
+          console.log("Insufficient Quantity! Pick a new One");
+          close()
           return;
 
         }
@@ -86,23 +88,28 @@ function asking() {
 
 
       function quitormore() {
-        inquirer
-        .prompt([
+        inquirer.prompt([
           {
             type: "confirm",
-            message: "would you like to buy more?"
+            message: "would you like to buy more?",
+            name: "confirm",
+            default: true
           }
-        ])
+        ]).then(function(response) {
+          console.log(response);
+          if (response.confirm) {
+            asking()
+            
+          }else{
+            close()
+          }
+        });
         //inquerer
         // showproducts or close
-      }
       function close() {
         console.log("see you soon")
         connection.end()
         process.exit
       }
-
-
-
-    })
-}
+    }
+    })};
